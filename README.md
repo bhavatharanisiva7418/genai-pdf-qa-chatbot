@@ -4,19 +4,31 @@
 To design and implement a question-answering chatbot capable of processing and extracting information from a provided PDF document using LangChain, and to evaluate its effectiveness by testing its responses to diverse queries derived from the document's content.
 
 ### PROBLEM STATEMENT:
-
+```
+The objective is to create a chatbot that can intelligently respond to queries based on information extracted from a PDF document. By using LangChain, the chatbot will be able to process the content of the PDF and use a language model to provide relevant answers to user queries. The effectiveness of the chatbot will be evaluated by testing it with various questions related to the document.
+```
 ### DESIGN STEPS:
 
-#### STEP 1:
-
-#### STEP 2:
-
-#### STEP 3:
-
+#### step 1:
+Initialization Input: PDF document path. Output: Document loader, embeddings, vector database, prompt, and chain.
+#### step 2:
+Load PDF Content Import and initialize the PyPDFLoader with the provided PDF file path. Extract the content of the PDF into pages.
+#### step 3:
+Embed the Document Chunks Import and initialize OpenAIEmbeddings to generate embeddings. Initialize the Chroma vector database with: Persistent storage directory (persist_directory). The embedding function.
+## step 4:
+Define the Language Model Import and initialize ChatOpenAI with: Model name (gpt-4). Temperature (0) for deterministic responses.
+## step 5:
+Create a Retrieval Prompt Define a concise, user-friendly prompt template to: Use context from the document. Limit answers to three sentences. Encourage polite responses with "Thanks for asking!" at the end.
+## step 6:
+Build the Retrieval Chain Initialize the RetrievalQA chain by: Specifying the language model (llm). Linking the retriever (vectordb.as_retriever()). Applying the prompt template. Enabling source document return for transparency.
+## step 7:
+Run the Query Take a query (question) as input. Pass the query to the qa_chain for processing. Retrieve the result and its associated source documents.
+## step 8:
+Output the Result Print the query (question). Print the chatbot’s answer (result["result"]).
 ### PROGRAM:
 ```
 from langchain.document_loaders import PyPDFLoader
-loader = PyPDFLoader("gen ai exp_2.pdf")
+loader = PyPDFLoader("genai.pdf")
 pages = loader.load()
 
 from langchain.vectorstores import Chroma
@@ -38,7 +50,7 @@ QA_CHAIN_PROMPT = PromptTemplate(input_variables=["context", "question"],templat
 
 # Run chain
 from langchain.chains import RetrievalQA
-question = "What is complex chain?"
+question = "Principles of Generative AI"
 qa_chain = RetrievalQA.from_chain_type(llm,
                                        retriever=vectordb.as_retriever(),
                                        return_source_documents=True,
@@ -50,6 +62,13 @@ print("Answer: ", result["result"])
 ```
 
 ### OUTPUT:
-![image](https://github.com/user-attachments/assets/0fe3e4a3-544c-42c4-8db5-c7ff5b8e364a)
+
+![image](https://github.com/user-attachments/assets/9d659271-48e6-4244-b0eb-c999cdd6b481)
 
 ### RESULT:
+
+Prompt: A structured prompt template was designed to pass the document content and user query to the language model.
+
+Model: OpenAI's GPT model was used to process the input data and provide an answer based on the document's content.
+
+Output Parsing: The model's output is returned as the answer to the query, ensuring that it provides relevant responses based on the content extracted from the PDF.
