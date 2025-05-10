@@ -11,11 +11,11 @@ to user queries. The effectiveness of the chatbot will be evaluated by testing i
 
 ### DESIGN STEPS:
 
-#### step 1:
+## step 1:
 Initialization Input: PDF document path. Output: Document loader, embeddings, vector database, prompt, and chain.
-#### step 2:
+## step 2:
 Load PDF Content Import and initialize the PyPDFLoader with the provided PDF file path. Extract the content of the PDF into pages.
-#### step 3:
+## step 3:
 Embed the Document Chunks Import and initialize OpenAIEmbeddings to generate embeddings. Initialize the Chroma vector database with: Persistent storage directory (persist_directory). The embedding function.
 ## step 4:
 Define the Language Model Import and initialize ChatOpenAI with: Model name (gpt-4). Temperature (0) for deterministic responses.
